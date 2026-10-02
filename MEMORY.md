@@ -1,0 +1,1 @@
+- [Regras del proyecto: Cerebro y Orquestador] — hook

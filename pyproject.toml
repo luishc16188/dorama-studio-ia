@@ -1,0 +1,73 @@
+[project]
+name = "dorama-studio"
+version = "0.1.0"
+description = "Multi-agent automated microdrama creation system"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "langgraph>=0.1",
+    "langchain>=0.1",
+    "httpx>=0.25",
+    "tenacity>=8.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+include = '\.pyi?$'
+exclude = '''
+/(
+  \.git
+  | \.venv
+  | build
+  | dist
+  | __pycache__
+  | \.pytest_cache
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "SIM", # flake8-simplify
+    "T20", # flake8-print
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # function calls in default argument values
+]
+exclude = [
+    ".venv",
+    "build",
+    "dist",
+    "__pycache__",
+    ".pytest_cache",
+]
+
+[tool.ruff.isort]
+known-first-party = ["dorama_studio"]
+combine-as-imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
