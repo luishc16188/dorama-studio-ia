@@ -1,0 +1,97 @@
+# Dorama Studio - Triple Agent Orchestration Configuration
+
+orchestration:
+  mode: "triple"  # solo, triple
+  auto_dispatch: true
+  parallel_execution: true
+  cross_review: true
+  automatic_handoff: true
+  shared_state: true
+  context_router: true
+  idle_prevention: true
+
+agents:
+  harness:
+    role: "lead_architect_orchestrator"
+    capabilities:
+      - research
+      - architectural_design
+      - analysis
+      - coordination
+      - integration
+      - qa
+      - conflict_resolution
+    weight: 1.0
+    auto_activate: true
+    
+  claude_code:
+    role: "forensic_prompt_creative_specialist"
+    capabilities:
+      - prompt_engineering
+      - architectural_design
+      - creative_writing
+      - pattern_analysis
+      - code_review
+      - forensic_analysis
+    weight: 1.0
+    auto_activate: true
+    
+  codex:
+    role: "implementation_benchmarking_engine"
+    capabilities:
+      - code_implementation
+      - test_generation
+      - benchmark_execution
+      - refactoring
+      - debugging
+      - code_review
+    weight: 1.0
+    auto_activate: true
+
+parallel_execution:
+  max_concurrent_tasks: 3
+  dependency_resolution: true
+  timeout_seconds: 300
+  retry_attempts: 2
+
+shared_state:
+  storage_path: "orchestration/shared_state"
+  auto_sync: true
+  conflict_resolution: "harness_decides"
+
+context_routing:
+  enabled: true
+  min_context: "task_context"
+  max_context: "full_context"
+  routing_rules:
+    harness:
+      - project_state
+      - architecture_decisions
+      - task_definition
+    claude_code:
+      - architecture_docs
+      - prompt_templates
+      - style_guides
+    codex:
+      - source_code
+      - test_files
+      - benchmark_scripts
+
+resource_limits:
+  max_tokens_per_agent: 8000
+  max_concurrent_tasks: 3
+  memory_limit_mb: 2048
+
+benchmarks:
+  enabled: true
+  targets:
+    - prompt_compiler_accuracy
+    - agent_response_time
+    - test_pass_rate
+    - code_quality_score
+  
+logging:
+  level: "INFO"
+  format: "json"
+  output: "orchestration/logs/orchestration.log"
+  task_history_limit: 1000

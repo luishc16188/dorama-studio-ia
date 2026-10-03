@@ -1,0 +1,272 @@
+# Video Prompts — REGISTRO DE CAPACIDADES Y DIALECTOS POR MODELO
+# NO es una biblioteca de prompts ya escritos: es la especificación que el
+# PromptCompiler (dorama_studio/pipeline/prompt_compiler.py) consume para COMPILAR
+# en tiempo real el prompt definitivo de cada shot por proveedor (kling|runway|veo|
+# hailuo|luma). Metodología consolidada: Harness + ChatGPT + Gemini + Qwen + síntesis.
+# Los `definitive_prompt_template` son la FORMA declarativa de cada dialecto, no contenido.
+
+video_prompts:
+  # ==================== TEMPLATE UNIVERSAL 9:16 ====================
+  universal_template: |
+    [SHOT / PLANO + SUJETO + ACCIÓN]
+    [LENTE / CÁMARA]: lente exacta (ej. 50mm f/1.8), tipo de plano (ECU/CU/MS/WS/OTS/POV), movimiento de cámara explícito (push-in, whip_pan, dutch_angle, dolly_zoom, orbital, tracking, rack_focus, zoom_punch), shallow depth of field si aplica.
+    [ILUMINACIÓN / COLOR]: clave (key/fill/back/practical), volumétrica/neon/chiaroscuro, temperatura, mood; paleta HEX del universo.
+    [FÍSICA / DETALLE]: viento en cabello/ropa, lluvia, humo, polvo, partículas, parpadeo, micro-movimientos faciales.
+    [EMOCIÓN / MICRO-EXPRESIÓN]: lágrima, respiración, temblor, mirada, mandíbula tensa — alineada al beat narrativo (Hook/Twist1/Cliffhanger/Revelation).
+    [CONSISTENCIA]: usar imagen de referencia del personaje (reference image) si el modelo permite image-to-video; mantener identidad intacta, sin morphing.
+    [ESTILO]: "cinematic dorama, K-Drama color grade" o estilo del universo.
+    RATIO 9:16 vertical (1080x1920) · 30fps · H.264 · ~8Mbps.
+
+  negative_bank_global: "blurry, distorted faces, morphing, bad anatomy, extra fingers, low quality, cg look, 3d render, oversaturated, jittery, warped background, double face, flickering, bad hands, extra limbs, watermark, text, logo"
+
+  # ==================== PROMPTS POR MODELO ====================
+  models:
+    kling:
+      name: "Kling (Kuaishou) 3.0 / Omni"
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16 nativo"
+        max_duration_sec: 15
+        native_audio: true
+        text_to_video: true
+        image_to_video: true
+        consistency: "element_consistency + reference_image + multi_shot"
+        multi_shot: true
+        multilingual: true
+      prompt_format: "image_to_video_preferred"
+      motion_control: "camera_motion_params + physics_description + audio_native_optional"
+      best_practices:
+        - "Prefiere image-to-video con reference image del personaje para consistencia facial"
+        - "Aprovecha audio nativo: pasa líneas de diálogo para lip-sync automático cuando el plano lo exige"
+        - "Describe movimiento con física y curva de velocidad (acelera/desacelera) para evitar morphing"
+        - "Multi-shot: encadena shots en una sola generación si comparten escenario/personaje"
+      definitive_prompt_template: |
+        Video a partir de la imagen de referencia (personaje CLAVE: {character_id}, identidad intacta, sin deformar).
+        Plano: {shot_type} {movement}. Cámara: {camera_motion}, {lens}, shallow DOF.
+        Iluminación: {lighting_key}, {lighting_mood}, paleta {palette_hex}.
+        Física: {physics_details}.
+        Emoción: {emotion_description} — {beat_name}.
+        Audio nativo: {dialogue_if_any} | SFX: {sfx_description}.
+        9:16 · duración {duration_sec}s · sin artefactos ni morphing.
+      negative_essentials:
+        - "morphing facial"
+        - "audio desincronizado"
+        - "warped background"
+
+    runway:
+      name: "Runway Gen-3 Alpha / Gen-4"
+      capabilities:
+        resolution: "1280x768 / 1080p"
+        aspect: "9:16 soportado"
+        max_duration_sec: 10
+        native_audio: false
+        text_to_video: true
+        image_to_video: true
+        consistency: "reference_image + character_consistency_tool"
+        multi_shot: false
+        motion_control: "text_prompt_camera_keywords + motion_brush"
+      prompt_format: "text_prompt_camera_explicit"
+      motion_control: "palabras clave de cámara (pan, tilt, zoom, tracking, crane, locked_off) + motion_brush UI"
+      best_practices:
+        - "Prompt de cámara MUY EXPLÍCITO: slow tracking shot left to right, whip pan, dolly zoom, crane up"
+        - "Image-to-video obligatorio para consistencia con keyframe de personaje"
+        - "Describe acción y física concreta; evita abstracciones"
+        - "Gen-4: usa camera_control sliders si disponibles en API"
+      definitive_prompt_template: |
+        Subject: {character_id} de la imagen de referencia, identidad sin cambiar.
+        Camera: {camera_motion_explicit}, {lens}, shallow depth of field, {stability_note}.
+        Action: {action_physics_concrete}.
+        Atmosphere: {lighting_atmosphere}, {particles_weather}.
+        Style: cinematic shoot, K-Drama grade, 9:16.
+        Negative: {negative_bank}
+      negative_essentials:
+        - "morphing"
+        - "warped hands"
+        - "double face"
+        - "flickering"
+
+    veo:
+      name: "Google Veo 3 (Vertex AI)"
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16 nativo"
+        max_duration_sec: 8
+        native_audio: true
+        text_to_video: true
+        image_to_video: true
+        consistency: "reference_image + prompt_adherence"
+        multi_shot: false
+        motion_control: "natural_language_camera + physics"
+      prompt_format: "natural_language_fluent"
+      motion_control: "descripción fluida en lenguaje natural de cámara, física y atmósfera"
+      best_practices:
+        - "Lenguaje natural fluido: Veo 3 tiene excelente adherencia al prompt"
+        - "Audio nativo + 9:16; ideal para planos con diálogo sincronizado"
+        - "Control de cámara y atmósfera por descripción detallada"
+        - "Consistencia vía reference image donde el plan lo permita"
+      definitive_prompt_template: |
+        Un plano {shot_type} de {character_id} {action_description}, cámara {camera_motion_natural},
+        foco en {focus_detail}. {character_id} {micro_expression_breath}.
+        Iluminación {lighting_style}, {color_palette}, profundidad de campo {dof}.
+        Audio: {ambience_audio} + {dialogue_if_any}.
+        Vertical 9:16. Sin morphing facial, sin artefactos.
+      negative_essentials:
+        - "morphing facial"
+        - "artefactos visuales"
+        - "audio desincronizado"
+
+    hailuo:
+      name: "Hailuo / Minimax Video-02 / 2.0"
+      capabilities:
+        resolution: "720p/1080p"
+        aspect: "9:16"
+        max_duration_sec: 6
+        native_audio: false
+        text_to_video: true
+        image_to_video: true
+        consistency: "reference_image_basic"
+        multi_shot: false
+        motion_control: "simple_text_action"
+      prompt_format: "simple_direct_text"
+      motion_control: "prompt de texto simple y directo; movimiento menos controlado que Kling/Runway"
+      best_practices:
+        - "Prompt simple, directo, acción concreta (no abstracciones de cámara complejas)"
+        - "Buena calidad facial/micro-expresión; ~6-10s por clip"
+        - "Ideal para shots de transición, cliffhangers breves, menor riesgo"
+        - "Más barato: usar para shots de relleno o establecer"
+      definitive_prompt_template: |
+        {character_id} {action_emotion_concrete}. Plano {shot_type}, profundidad de campo baja,
+        luz {lighting_simple}, tonos {palette_mood}. Cámara {camera_simple}.
+        Breve, emotivo. 9:16.
+      negative_essentials:
+        - "morphing"
+        - "baja calidad facial"
+
+    luma:
+      name: "Luma Dream Machine / Ray 2"
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 9
+        native_audio: false
+        text_to_video: true
+        image_to_video: true
+        consistency: "keyframes_start_end + reference"
+        multi_shot: false
+        motion_control: "keyframe_control + camera_keywords"
+      prompt_format: "keyframe_aware"
+      motion_control: "keyframes inicio/fin + keywords de cámara + motion_vector"
+      best_practices:
+        - "Text-to-video + keyframes para control preciso de inicio/fin"
+        - "Bueno para shots 'wow': establecimiento, transiciones atmosféricas, crane shots"
+        - "Control de cámara y motion razonable"
+      definitive_prompt_template: |
+        {shot_description_cinematic}. Cámara {camera_motion_cinematic}, {particles_atmosphere}.
+        {character_if_any} {micro_expression_if_closeup}.
+        Style: {genre_style}, 9:16. Sin morphing.
+      negative_essentials:
+        - "morphing"
+        - "warped background"
+
+  # ==================== ROUTING POR TIPO DE SHOT ====================
+  shot_type_routing:
+    hook:
+      description: "0-3s — Visual shock + audio sub-bass + dilema moral. Máxima expresividad."
+      primary: ["kling", "veo"]
+      fallback: ["runway"]
+      prompt_hints:
+        - "ECU extrema, mirada directa, sorpresa/traición"
+        - "Sub-bass 40Hz + silencio 0.3s + sound design"
+        - "0 diálogo primeros 3s si es posible"
+
+    twist_revelation:
+      description: "35-55s — Dolly zoom + silence-drop + revelación visual. Control de cámara fino."
+      primary: ["runway", "kling"]
+      fallback: ["veo"]
+      prompt_hints:
+        - "Dolly zoom (push-in + pull-out simultáneo) o rack focus dramático"
+        - "Silence drop 0.2s ANTES del reveal"
+        - "Match-cut visual con objeto simbólico (anillo, foto, carta)"
+
+    romance_intimacy:
+      description: "Momentos románticos/íntimos — Slow push-in, shallow DOF, luz cálida."
+      primary: ["veo", "kling"]
+      fallback: ["luma"]
+      prompt_hints:
+        - "50mm/85mm, push-in lento, golden hour / warm practical lighting"
+        - "Micro-expresiones: respiración, parpadeo lento, sonrisa contenida"
+        - "Partículas de polvo en luz (tyndall effect)"
+
+    action_movement:
+      description: "Acción, persecución, confrontación física — Whip pan, tracking rápido, física."
+      primary: ["runway", "kling"]
+      fallback: ["veo"]
+      prompt_hints:
+        - "Whip pan 90° en 0.5s, tracking shot personaje corriendo"
+        - "Física: viento, ropa ondeando, partículas, impacto"
+        - "Speed ramp: 0.5x → 2x en momento de impacto"
+
+    cliffhanger:
+      description: "78-88s — Freeze/susto corto + dilema. Breve, intenso, barato."
+      primary: ["hailuo", "luma"]
+      fallback: ["kling"]
+      prompt_hints:
+        - "Plano fijo o micro-movimiento, expresión congelada"
+        - "Objeto clave en primer plano (split screen opcional)"
+        - "Duración 4-6s, alto impacto emocional"
+
+    establishing:
+      description: "Establecimiento de escenario, atmósfera, mundo."
+      primary: ["luma", "veo"]
+      fallback: ["kling"]
+      prompt_hints:
+        - "Crane up/down, wide shot con atmósfera densa"
+        - "Partículas en primer plano (lluvia, nieve, polvo, neón)"
+        - "Transición suave hacia ventana/puerta donde está el personaje"
+
+    transition:
+      description: "Puente entre beats, cambio de ubicación/tiempo."
+      primary: ["hailuo", "luma"]
+      fallback: ["runway"]
+      prompt_hints:
+        - "Match-cut visual (forma/color/movimiento)"
+        - "Whip pan direccional"
+        - "Speed ramp + sound bridge"
+
+  # ==================== BANCO DE NEGATIVOS POR MODELO ====================
+  negative_bank_by_model:
+    kling:
+      - "morphing facial"
+      - "audio desincronizado"
+      - "warped background"
+      - "double face"
+      - "flickering"
+    runway:
+      - "morphing"
+      - "warped hands"
+      - "double face"
+      - "flickering"
+      - "bad anatomy"
+    veo:
+      - "morphing facial"
+      - "artefactos visuales"
+      - "audio desincronizado"
+      - "blurry"
+    hailuo:
+      - "morphing"
+      - "baja calidad facial"
+      - "warped background"
+    luma:
+      - "morphing"
+      - "warped background"
+      - "jittery"
+
+  # ==================== SPECS TARGET POR DEFECTO ====================
+  target_specs:
+    resolution: "1080x1920"
+    aspect_ratio: "9:16"
+    fps: 30
+    codec: "h264"
+    bitrate_mbps: 8
+    min_duration_sec: 5
+    max_duration_sec: 10

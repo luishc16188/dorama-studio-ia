@@ -5,9 +5,8 @@ Determina qué archivos de SOURCE deben integrarse en TARGET.
 """
 
 import json
-import sys
-import os
 from pathlib import Path
+
 
 def load_comparison_map():
     """Carga el mapa comparativo desde la salida del agente anterior."""

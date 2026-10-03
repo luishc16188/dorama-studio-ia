@@ -1,0 +1,213 @@
+# DORAMA STUDIO AI - Platform Specifications
+# Specifications for TikTok, YouTube Shorts, and Instagram Reels
+
+platforms:
+  tiktok:
+    name: TikTok
+    description: "Plataforma de videos cortos verticales con algoritmo de descubrimiento potente"
+    technical_specs:
+      aspect_ratio: "9:16"
+      resolution: "1080x1920"  # Minimum, supports up to 4K
+      max_duration_sec: 180  # 3 minutes, but 90s optimal for drama
+      min_duration_sec: 1
+      supported_formats: ["MP4", "MOV"]
+      supported_codecs: ["H.264", "H.265"]
+      max_file_size_mb: 2876  # 2.876 GB
+      frame_rate: [24, 25, 30]  # FPS
+      audio_format: ["AAC", "MP3"]
+      audio_bitrate_kbps: [64, 128, 256]
+    content_specs:
+      # First 3 seconds are critical for hook
+      hook_critical_window_sec: 3
+      # Text overlay limits
+      max_text_overlay_chars: 100
+      safe_area_vertical_pct: 0.10  # 10% from top and bottom
+      safe_area_horizontal_pct: 0.05  # 5% from left and right
+      # Engagement patterns
+      peak_engagement_times: ["19:00-21:00", "21:00-23:00"]  # Local time
+      optimal_posting_frequency: "1-2 veces por día"
+      algorithm_factors: ["watch_time", "completion_rate", "shares", "comments", "likes"]
+    monetization:
+      creator_fund_eligible: true
+      gift_receiving_eligible: true
+      brand_partnership_eligible: true
+      live_streaming_eligible: true
+    restrictions:
+      prohibited_content: [
+        "violencia_gráfica",
+        "contenido_sexual_explícito",
+        "discriminación",
+        "información_falsa_peligrosa",
+        "instrucciones_para_actividades_ilegales"
+      ]
+      copyright_strictness: "high"
+      community_guidelines_enforcement: "strict"
+
+  youtube_shorts:
+    name: YouTube Shorts
+    description: "Plataforma de videos cortos verticales integrada con el ecosistema de YouTube"
+    technical_specs:
+      aspect_ratio: "9:16"
+      resolution: "1080x1920"  # Supports up to 4K
+      max_duration_sec: 60  # Strictly 60 seconds or less
+      min_duration_sec: 1
+      supported_formats: ["MP4"]
+      supported_codecs: ["H.264", "H.265"]
+      max_file_size_mb: 100
+      frame_rate: [24, 25, 30, 60]  # FPS
+      audio_format: ["AAC", "MP3"]
+      audio_bitrate_kbps: [64, 128, 256]
+    content_specs:
+      # First 2 seconds are critical for hook on Shorts
+      hook_critical_window_sec: 2
+      # Integration with main YouTube channel
+      can_link_to_long_form: true
+      can_use_community_tab: true
+      # Text and sticker limits
+      max_text_overlay_chars: 100
+      max_stickers: 2
+      safe_area_vertical_pct: 0.08  # 8% from top and bottom
+      safe_area_horizontal_pct: 0.05  # 5% from left and right
+      # Engagement patterns
+      peak_engagement_times: ["18:00-20:00", "20:00-22:00"]  # Local time
+      optimal_posting_frequency: "1-3 veces por día"
+      algorithm_factors: ["watch_time", "completion_rate", "shares", "comments", "likes", "channel_subscriptions"]
+    monetization:
+      creator_fund_eligible: true  # Through YouTube Partner Program
+      ad_revenue_eligible: true  # When part of YPP
+      super_chat_eligible: true
+      channel_memberships_eligible: true
+      merchandise_shelf_eligible: true
+    restrictions:
+      prohibited_content: [
+        "violencia_gráfica",
+        "contenido_sexual_explícito",
+        "discriminación",
+        "información_falsa_peligrosa",
+        "instrucciones_para_actividades_ilegales",
+        "content_that_violates_youtube_terms"
+      ]
+      copyright_strictness: "very_high"  # Content ID system
+      community_guidelines_enforcement: "strict"
+
+  instagram_reels:
+    name: Instagram Reels
+    description: "Plataforma de videos cortos verticales integrada con Instagram"
+    technical_specs:
+      aspect_ratio: "9:16"
+      resolution: "1080x1920"  # Supports up to 4K
+      max_duration_sec: 90  # Up to 90 seconds
+      min_duration_sec: 3
+      supported_formats: ["MP4", "MOV"]
+      supported_codecs: ["H.264", "H.265"]
+      max_file_size_mb: 4000  # 4 GB (larger than others)
+      frame_rate: [24, 25, 30]  # FPS
+      audio_format: ["AAC", "MP3"]
+      audio_bitrate_kbps: [64, 128, 256, 320]
+    content_specs:
+      # First 2.5 seconds are critical for hook
+      hook_critical_window_sec: 2.5
+      # Integration with main Instagram feed and Stories
+      can_share_to_feed: true
+      can_share_to_story: true
+      can_use_music_sticker: true
+      # Text and sticker limits
+      max_text_overlay_chars: 125
+      max_stickers: 3
+      safe_area_vertical_pct: 0.125  # 12.5% from top and bottom (more conservative)
+      safe_area_horizontal_pct: 0.075  # 7.5% from left and right
+      # Engagement patterns
+      peak_engagement_times: ["19:00-21:00", "21:00-23:00"]  # Local time
+      optimal_posting_frequency: "1-2 veces por día"
+      algorithm_factors: ["watch_time", "completion_rate", "shares", "saves", "comments", "likes", "profile_visits"]
+    monetization:
+      creator_fund_eligible: true  # Instagram Reels Play bonus
+      badge_eligible: true
+      brand_partnership_eligible: true
+      affiliate_marketing_eligible: true
+      shopping_tags_eligible: true
+    restrictions:
+      prohibited_content: [
+        "violencia_gráfica",
+        "contenido_sexual_explícito",
+        "discriminación",
+        "información_falsa_peligrosa",
+        "instrucciones_para_actividades_ilegales",
+        "content_that_violates_instagram_terms"
+      ]
+      copyright_strictness: "high"
+      community_guidelines_enforcement: "strict"
+
+# Platform selection rules
+platform_selection_rules:
+  default_platform: tiktok
+  platform_distribution:
+    tiktok: 0.5
+    youtube_shorts: 0.3
+    instagram_reels: 0.2
+
+# Cross-platform specifications
+cross_platform_specs:
+  # Technical requirements that apply to all platforms
+  technical:
+    # All platforms prefer 9:16 vertical
+    preferred_aspect_ratio: "9:16"
+    # Minimum resolution for clear viewing on mobile
+    min_resolution: "720x1280"
+    # Maximum file size for reasonable upload/download times
+    reasonable_max_file_size_mb: 100
+    # Standard frame rates
+    standard_frame_rates: [24, 25, 30]
+    # Audio standards
+    standard_audio_format: "AAC"
+    standard_audio_bitrate_kbps: 128
+
+  # Content requirements that apply to all platforms
+  content:
+    # Hook timing is critical across all platforms
+    hook_timing_critical: true
+    # Vertical video is preferred
+    vertical_preferred: true
+    # Sound-off viewing is common
+    sound_off_viewing_common: true
+    # Text should be readable without sound
+    text_readable_without_sound: true
+    # First frame should be engaging
+    first_frame_engaging: true
+    # Last frame should encourage continuation
+    last_frame_encouraging: true
+
+  # Engagement patterns that apply to all platforms
+  engagement:
+    # Peak evening hours
+    peak_hours_local: ["19:00-23:00"]
+    # Weekend vs weekday patterns
+    weekend_preferred: true
+    # Consistency beats frequency
+    consistency_over_frequency: true
+    # Quality over quantity
+    quality_over_quantity: true
+
+# Algorithm-specific factors by platform
+algorithm_factors:
+  tiktok:
+    - watch_time: 0.35
+    - completion_rate: 0.25
+    - shares: 0.15
+    - comments: 0.10
+    - likes: 0.10
+    - follows_from_video: 0.05
+  youtube_shorts:
+    - watch_time: 0.30
+    - completion_rate: 0.30
+    - shares: 0.15
+    - comments: 0.10
+    - likes: 0.10
+    - channel_subscriptions: 0.05
+  instagram_reels:
+    - watch_time: 0.30
+    - completion_rate: 0.25
+    - shares: 0.15
+    - saves: 0.10  # Unique to Instagram
+    - comments: 0.10
+    - likes: 0.10

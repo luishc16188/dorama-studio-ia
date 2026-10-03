@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Story Graph Dashboard - Dorama Studio AI</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bokeh@3.0.3/dist/bokeh/bokeh.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bokeh@3.0.3/dist/bokeh/bokeh.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #2a3f5f; }
+        .sidebar { width: 200px; float: left; padding: 10px; background: #f0f5f9; height: fit-content; }
+        .main { margin-left: 220px; padding: 10px; }
+        .controls { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Story Graph Dashboard - DORAMA STUDIO AI</h1>
+
+    <div class="sidebar">
+        <div class="controls">
+            <label>Archivo JSON:</label>
+            <input type="file" id="jsonFile" accept=".json">
+        </div>
+        <div class="controls">
+            <label>Mostrar:</label>
+            <select id="nodeTypeFilter">
+                <option value="all">Todos</option>
+                <!-- options will be populated -->
+            </select>
+        </div>
+        <div class="controls">
+            <label>Tamaño del nodo (px):</label>
+            <input type="number" id="nodeSize" value="20" min="5" max="100">
+        </div>
+    </div>
+
+    <div class="main">
+        <div id="plot" style="border: 1px solid #ccc; width: 100%; height: 800px;"></div>
+        <div id="info" style="margin-top: 10px; font-size: 0.9em; color: #555;"></div>
+    </div>
+
+    <script>
+        // Cargar datos del grafo
+        let graphData = { nodes: [], edges: [] };
+
+        // Cargar archivo JSON seleccionado
+        document.getElementById('jsonFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                graphData = JSON.parse(e.target.result);
+                renderGraph();
+                populateNodeTypeFilter();
+            };
+            reader.readAsText(file);
+        });
+
+        function populateNodeTypeFilter() {
+            const types = [...new Set(graphData.nodes.map(n => n.type))];
+            const select = document.getElementById('nodeTypeFilter');
+            select.innerHTML = '<option value="all">Todos</option>';
+            types.forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t;
+                opt.textContent = t;
+                select.appendChild(opt);
+            });
+        }
+
+        // Posicionamiento simple: círculos aleatorios para demo
+        let nodePositions = {};
+
+        function renderGraph() {
+            const nodeData = graphData.nodes.filter(n => {
+                const sel = document.getElementById('nodeTypeFilter').value;
+                return sel === 'all' || n.type === sel;
+            });
+
+            // Compute positions if not already
+            if (Object.keys(nodePositions).length === 0) {
+                nodeData.forEach((n, i) => {
+                    nodePositions[n.id] = {
+                        x: Math.random() * 800,
+                        y: Math.random() * 600
+                    };
+                });
+            }
+
+            const source = new Bokeh.ColumnDataSource({
+                data: {
+                    id: nodeData.map(n => n.id),
+                    type: nodeData.map(n => n.type),
+                    x: Object.values(nodePositions).map(p => p.x),
+                    y: Object.values(nodePositions).map(p => p.y),
+                    size: nodeData.map(() => parseInt(document.getElementById('nodeSize').value) || 20)
+                }
+            });
+
+            const edgeData = graphData.edges.filter(e => {
+                return true; // show all edges for now
+            });
+            const edgeSource = new Bokeh.ColumnDataSource({
+                data: {
+                    start: edgeData.map(e => e.source),
+                    end: edgeData.map(e => e.target),
+                    rel: edgeData.map(e => e.relationship)
+                }
+            });
+
+            const tool = new Bokeh.Toolbar();
+            const p = new Bokeh.Figure({
+                width: 800,
+                height: 600,
+                tools: [tool, 'pan', 'wheel_zoom', 'reset'],
+                title: "Story Graph - Nodos y Aristas"
+            });
+
+            // Nodos
+            const renderers = p.circle({ field: 'x' }, { field: 'y' }, {
+                size: { field: 'size' },
+                fill_color: {
+                    transform: {
+                        type: 'categorical',
+                        mapping: {
+                            'setup': '#4c72b0',
+                            'beat': '#55a868',
+                            'payoff': '#c44e52',
+                            'revelation': '#8172c1',
+                            'decision': '#b0717i',
+                            'cta': '#f0e442',
+                        }
+                    },
+                    field: 'type'
+                },
+                line_color: "white",
+                line_width: 1,
+                hover_color: "white"
+            });
+
+            // Etiquetas al pasar el ratón
+            renderers.data_source.on_change('selected', function() {
+                const ids = renderers.data_source.selected.indices;
+                const infoDiv = document.getElementById('info');
+                if (ids.length > 0) {
+                    const selectedIds = ids.indices.map(i => nodeData[indices[i]].id);
+                    infoDiv.text = `Seleccionados: ${selectedIds.join(', ')}`;
+                } else {
+                    infoDiv.text = "";
+                }
+            });
+
+            // Aristas (lineas simples)
+            p.multi_line({ field: 'start', field: 'end' }, {
+                source: edgeSource,
+                line_color: "#aaaaff",
+                line_width: 1,
+                muted_color: "transparent"
+            });
+
+            // Hover tool para nodos
+            const hover = new Bokeh.HoverTool(tooltips=[
+                ("ID", "@id"),
+                ("Tipo", "@type"),
+            ]);
+            p.add_tools(hover, tool);
+
+            const layout = new Bokeh.LayoutDOM({ children: [p] });
+            document.getElementById('plot').innerHTML = "";
+            layout.render(document.getElementById('plot'));
+        }
+    </script>
+</body>
+</html>

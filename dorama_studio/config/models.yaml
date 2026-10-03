@@ -1,0 +1,589 @@
+# DORAMA STUDIO AI - Model Configurations
+# Configuration for LLMs and generation models used by agents
+
+models:
+  # FreeLLMAPI Models (local server)
+  freellmapi:
+    auto:
+      provider: freellmapi
+      model: auto
+      task_type: general
+      priority: medium
+      cost_per_token: 0.0
+      estimated_tokens: 2048
+      budget_category: proven
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 10
+      fallback_chain:
+        - provider: freellmapi
+          model: claude-opus-4-5
+        - provider: freellmapi
+          model: claude-sonnet-4-5
+        - provider: freellmapi
+          model: deepseek-r1
+        - provider: freellmapi
+          model: gemini-3-5-flash
+
+    claude-opus-4-5:
+      provider: freellmapi
+      model: claude-opus-4-5
+      task_type: narrative
+      priority: high
+      cost_per_token: 0.015
+      estimated_tokens: 4096
+      budget_category: proven
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 10
+      fallback_chain:
+        - provider: freellmapi
+          model: claude-sonnet-4-5
+        - provider: freellmapi
+          model: deepseek-r1
+
+    claude-sonnet-4-5:
+      provider: freellmapi
+      model: claude-sonnet-4-5
+      task_type: narrative
+      priority: high
+      cost_per_token: 0.003
+      estimated_tokens: 4096
+      budget_category: proven
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 10
+      fallback_chain:
+        - provider: freellmapi
+          model: deepseek-r1
+        - provider: freellmapi
+          model: gemini-3-5-flash
+
+    deepseek-r1:
+      provider: freellmapi
+      model: deepseek-r1
+      task_type: analytical
+      priority: medium
+      cost_per_token: 0.002
+      estimated_tokens: 4096
+      budget_category: proven
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 10
+      fallback_chain:
+        - provider: freellmapi
+          model: gemini-3-5-flash
+        - provider: freellmapi
+          model: claude-haiku-4-5
+
+    claude-haiku-4-5:
+      provider: freellmapi
+      model: claude-haiku-4-5
+      task_type: fast_generation
+      priority: low
+      cost_per_token: 0.0005
+      estimated_tokens: 2048
+      budget_category: exploration
+      capabilities:
+        resolution: "720p"
+        aspect: "9:16"
+        max_duration_sec: 8
+      fallback_chain:
+        - provider: freellmapi
+          model: deepseek-v3
+        - provider: freellmapi
+          model: kimi-k2-x
+
+    deepseek-v3:
+      provider: freellmapi
+      model: deepseek-v3
+      task_type: analytical
+      priority: medium
+      cost_per_token: 0.0015
+      estimated_tokens: 4096
+      budget_category: exploration
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 10
+      fallback_chain:
+        - provider: freellmapi
+          model: kimi-k2-x
+        - provider: freellmapi
+          model: gemma-7b
+
+    kimi-k2-x:
+      provider: freellmapi
+      model: kimi-k2-x
+      task_type: creative
+      priority: low
+      cost_per_token: 0.001
+      estimated_tokens: 4096
+      budget_category: exploration
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 10
+      fallback_chain:
+        - provider: freellmapi
+          model: gemma-7b
+        - provider: freellmapi
+          model: nemotron-34b
+
+    gemini-3-5-flash:
+      provider: freellmapi
+      model: gemini-3-5-flash
+      task_type: general
+      priority: medium
+      cost_per_token: 0.0001
+      estimated_tokens: 4096
+      budget_category: proven
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 10
+      fallback_chain:
+        - provider: freellmapi
+          model: nemotron-34b
+        - provider: freellmapi
+          model: phi-4
+
+    nemotron-34b:
+      provider: freellmapi
+      model: nemotron-34b
+      task_type: reasoning
+      priority: low
+      cost_per_token: 0.002
+      estimated_tokens: 4096
+      budget_category: big_bet
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 10
+      fallback_chain:
+        - provider: freellmapi
+          model: phi-4
+        - provider: freellmapi
+          model: experimental
+
+    phi-4:
+      provider: freellmapi
+      model: phi-4
+      task_type: general
+      priority: low
+      cost_per_token: 0.0005
+      estimated_tokens: 2048
+      budget_category: big_bet
+      capabilities:
+        resolution: "720p"
+        aspect: "9:16"
+        max_duration_sec: 8
+      fallback_chain:
+        - provider: freellmapi
+          model: experimental
+        - provider: freellmapi
+          model: claude-3-5-sonnet
+
+    experimental:
+      provider: freellmapi
+      model: freellmapi/experimental
+      task_type: experimental
+      priority: very_low
+      cost_per_token: 0.0
+      estimated_tokens: 1024
+      budget_category: big_bet
+      capabilities:
+        resolution: "512p"
+        aspect: "9:16"
+        max_duration_sec: 6
+      fallback_chain: []
+
+  # Video Generation Models (Veo, Kling, Runway, etc.)
+  video:
+    veo-3-1-standard:
+      provider: veo
+      model: veo-3-1-standard
+      task_type: video_generation
+      priority: high
+      cost_per_second: 0.40  # $0.40/s
+      estimated_duration_sec: 10
+      budget_category: proven
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 8
+        supports_timestamps: true
+        supports_first_last_frame: true
+        supports_extend: true
+        supports_ingredients: true
+        max_ingredients: 3
+      fallback_chain:
+        - provider: veo
+          model: veo-3-1-fast
+        - provider: veo
+          model: veo-3-1-lite
+
+    veo-3-1-fast:
+      provider: veo
+      model: veo-3-1-fast
+      task_type: video_generation
+      priority: medium
+      cost_per_second: 0.10  # $0.10/s
+      estimated_duration_sec: 10
+      budget_category: proven
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 8
+        supports_timestamps: true
+        supports_first_last_frame: true
+        supports_extend: true
+        supports_ingredients: true
+        max_ingredients: 3
+      fallback_chain:
+        - provider: veo
+          model: veo-3-1-lite
+        - provider: kling
+          model: kling-v1-5-pro
+
+    veo-3-1-lite:
+      provider: veo
+      model: veo-3-1-lite
+      task_type: video_generation
+      priority: low
+      cost_per_second: 0.05  # $0.05/s
+      estimated_duration_sec: 10
+      budget_category: proven
+      capabilities:
+        resolution: "720p"
+        aspect: "9:16"
+        max_duration_sec: 8
+        supports_timestamps: true
+        supports_first_last_frame: true
+        supports_extend: true
+        supports_ingredients: true
+        max_ingredients: 3
+      fallback_chain:
+        - provider: kling
+          model: kling-v1-5-standard
+        - provider: runway
+          model: runway-gen2
+
+    kling-v1-5-pro:
+      provider: kling
+      model: kling-v1-5-pro
+      task_type: video_generation
+      priority: high
+      cost_per_second: 0.35  # Estimated
+      estimated_duration_sec: 10
+      budget_category: proven
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 10
+        supports_timestamps: true
+        supports_first_last_frame: true
+        supports_extend: false
+        supports_ingredients: false
+        max_ingredients: 0
+      fallback_chain:
+        - provider: kling
+          model: kling-v1-5-standard
+        - provider: runway
+          model: runway-gen2
+
+    kling-v1-5-standard:
+      provider: kling
+      model: kling-v1-5-standard
+      task_type: video_generation
+      priority: medium
+      cost_per_second: 0.15  # Estimated
+      estimated_duration_sec: 10
+      budget_category: proven
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 10
+        supports_timestamps: true
+        supports_first_last_frame: true
+        supports_extend: false
+        supports_ingredients: false
+        max_ingredients: 0
+      fallback_chain:
+        - provider: runway
+          model: runway-gen2
+        - provider: veo
+          model: veo-3-1-lite
+
+    runway-gen2:
+      provider: runway
+      model: runway-gen2
+      task_type: video_generation
+      priority: medium
+      cost_per_second: 0.12  # Estimated
+      estimated_duration_sec: 10
+      budget_category: proven
+      capabilities:
+        resolution: "1080p"
+        aspect: "9:16"
+        max_duration_sec: 16
+        supports_timestamps: false
+        supports_first_last_frame: true
+        supports_extend: false
+        supports_ingredients: false
+        max_ingredients: 0
+      fallback_chain:
+        - provider: veo
+          model: veo-3-1-lite
+        - provider: kling
+          model: kling-v1-5-standard
+
+  # Image Generation Models (Flux, DALL-E, etc.)
+  image:
+    flux-pro:
+      provider: flux
+      model: flux-pro
+      task_type: image_generation
+      priority: high
+      cost_per_image: 0.08  # Estimated
+      budget_category: proven
+      capabilities:
+        resolution: "2048x2048"
+        aspect_ratio: "1:1"
+        supports_inpainting: true
+        supports_outpainting: true
+        supports_controlnet: true
+      fallback_chain:
+        - provider: flux
+          model: flux-dev
+        - provider: openai
+          model: dall-e-3
+
+    flux-dev:
+      provider: flux
+      model: flux-dev
+      task_type: image_generation
+      priority: medium
+      cost_per_image: 0.05  # Estimated
+      budget_category: exploration
+      capabilities:
+        resolution: "2048x2048"
+        aspect_ratio: "1:1"
+        supports_inpainting: true
+        supports_outpainting: true
+        supports_controlnet: true
+      fallback_chain:
+        - provider: openai
+          model: dall-e-3
+        - provider: stability
+          model: stable-diffusion-xl
+
+    dall-e-3:
+      provider: openai
+      model: dall-e-3
+      task_type: image_generation
+      priority: medium
+      cost_per_image: 0.04  # Estimated
+      budget_category: proven
+      capabilities:
+        resolution: "1792x1024"
+        aspect_ratio: "variable"
+        supports_inpainting: true
+        supports_outpainting: true
+        supports_controlnet: false
+      fallback_chain:
+        - provider: stability
+          model: stable-diffusion-xl
+        - provider: midjourney
+          model: midjourney-v6
+
+    stable-diffusion-xl:
+      provider: stability
+      model: stable-diffusion-xl
+      task_type: image_generation
+      priority: low
+      cost_per_image: 0.0035  # Estimated
+      budget_category: big_bet
+      capabilities:
+        resolution: "1024x1024"
+        aspect_ratio: "1:1"
+        supports_inpainting: true
+        supports_outpainting: true
+        supports_controlnet: true
+      fallback_chain:
+        - provider: midjourney
+          model: midjourney-v6
+        - provider: openai
+          model: dall-e-2
+
+  # Audio Generation Models (ElevenLabs, Suno, etc.)
+  audio:
+    elevenlabs-premium:
+      provider: elevenlabs
+      model: elevenlabs-premium
+      task_type: voice_generation
+      priority: high
+      cost_per_character: 0.00015  # Estimated
+      budget_category: proven
+      capabilities:
+        sample_rate: 44100
+        bit_depth: 16
+        formats: ["mp3", "wav"]
+        supports_emotional_control: true
+        supports_cloning: true
+        max_text_length: 5000
+      fallback_chain:
+        - provider: elevenlabs
+          model: elevenlabs-standard
+        - provider: suno
+          model: suno-chirp-v3
+
+    elevenlabs-standard:
+      provider: elevenlabs
+      model: elevenlabs-standard
+      task_type: voice_generation
+      priority: medium
+      cost_per_character: 0.00010  # Estimated
+      budget_category: proven
+      capabilities:
+        sample_rate: 44100
+        bit_depth: 16
+        formats: ["mp3"]
+        supports_emotional_control: true
+        supports_cloning: false
+        max_text_length: 5000
+      fallback_chain:
+        - provider: suno
+          model: suno-chirp-v3
+        - provider: opus
+          model: opus-tts
+
+    suno-chirp-v3:
+      provider: suno
+      model: suno-chirp-v3
+      task_type: music_generation
+      priority: medium
+      cost_per_second: 0.008  # Estimated
+      budget_category: proven
+      capabilities:
+        sample_rate: 44100
+        bit_depth: 16
+        duration_limit_sec: 30
+        supports_lyrics: true
+        supports_instrumental: true
+        supports_custom_voices: false
+      fallback_chain:
+        - provider: epidemic-sound
+          model: epidemic-sound-royalty-free
+        - provider: elevenlabs
+          model: elevenlabs-premium
+
+    epidemic-sound-royalty-free:
+      provider: epidemic-sound
+      model: epidemic-sound-royalty-free
+      task_type: music_generation
+      priority: low
+      cost_per_second: 0.005  # Estimated (subscription-based)
+      budget_category: proven
+      capabilities:
+        sample_rate: 44100
+        bit_depth: 16
+        duration_limit_sec: 60
+        supports_lyrics: false
+        supports_instrumental: true
+        supports_custom_voices: false
+        library_size: "100000+ tracks"
+      fallback_chain:
+        - provider: suno
+          model: suno-chirp-v3
+        - provider: opus
+          model: opus-tts
+
+    opus-tts:
+      provider: opus
+      model: opus-tts
+      task_type: voice_generation
+      priority: low
+      cost_per_character: 0.00003  # Estimated (open source)
+      budget_category: big_bet
+      capabilities:
+        sample_rate: 22050
+        bit_depth: 16
+        formats: ["wav"]
+        supports_emotional_control: false
+        supports_cloning: false
+        max_text_length: 1000
+      fallback_chain: []
+
+# Model Selection Rules
+model_selection_rules:
+  # Narrative tasks use proven models by default
+  narrative:
+    default_model: claude-opus-4-5
+    fallback_strategy: proven_first
+    budget_allocation:
+      proven: 0.7
+      exploration: 0.2
+      big_bet: 0.1
+
+  # Analytical tasks can use exploration models
+  analytical:
+    default_model: deepseek-r1
+    fallback_strategy: balanced
+    budget_allocation:
+      proven: 0.5
+      exploration: 0.3
+      big_bet: 0.2
+
+  # Creative tasks can use big bet models
+  creative:
+    default_model: claude-haiku-4-5
+    fallback_strategy: creative_first
+    budget_allocation:
+      proven: 0.4
+      exploration: 0.4
+      big_bet: 0.2
+
+  # Video generation uses proven models for quality
+  video_generation:
+    default_model: veo-3-1-standard
+    fallback_strategy: quality_first
+    budget_allocation:
+      proven: 0.8
+      exploration: 0.15
+      big_bet: 0.05
+
+  # Image generation balances quality and cost
+  image_generation:
+    default_model: flux-pro
+    fallback_strategy: balanced
+    budget_allocation:
+      proven: 0.6
+      exploration: 0.25
+      big_bet: 0.15
+
+  # Audio generation prioritizes quality for voice
+  audio_generation:
+    default_model: elevenlabs-premium
+    fallback_strategy: quality_first
+    budget_allocation:
+      proven: 0.7
+      exploration: 0.2
+      big_bet: 0.1
+
+# Global Settings
+global_settings:
+  default_timeout_sec: 30
+  max_retries: 3
+  retry_delay_sec: 1
+  enable_fallback_chain: true
+  enable_cost_tracking: true
+  enable_performance_tracking: true
+  temperature: 0.7
+  top_p: 0.9
+  frequency_penalty: 0.0
+  presence_penalty: 0.0

@@ -1,0 +1,13 @@
+﻿Dorama Studio IA - Multi-agent automated microdrama creation system
+from .agents.base_agent import BaseAgent
+from .agents.contract import EpisodeSpecV2, AgentContract
+from .contracts.character_bible import CharacterBible
+from .contracts.episode_scorer import EpisodeScore
+from .contracts.trend_signal import TrendSignal, ViralPotential
+from .core.base_agent import AnalyticsOutput, BaseAgent, FeedbackLoop
+from .core.error_memory import ErrorMemoryBank
+from .video.model_router import ModelRouter, ShotSpec
+from .visual.consistency_validator import CharacterConsistencyValidator
+
+__version__ =  0.1.0
+__author__ = Dorama Studio Team

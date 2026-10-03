@@ -1,0 +1,240 @@
+# DORAMA STUDIO AI - Genre Definitions
+# Defines the 5 core narrative lines with tropes and beats
+
+genres:
+  romance_traicion:
+    name: Romance Traicion
+    description: "Historias de amor prohibido, traiciones y segundas oportunidades"
+    core_tropes:
+      - identidad_flip
+      - amor_prohibido
+      - triángulo_amoroso
+      - secreto_de_familia
+      - heredera_oculta
+      - traición_de_confianza
+      - redención_a_través_del_amor
+    common_settings:
+      - alta_sociedad
+      - empresarial
+      - político
+      - entretenimiento
+    typical_characters:
+      - protagonista: "heredera oculta con secreto peligroso"
+      - antagonista: "figura de poder que protege el secreto a cualquier costo"
+      - aliado: "investigador o periodista que descubre la verdad"
+      - interés_amoroso: "alguien de clase social opuesta o con agenda propia"
+    plot_points:
+      - setup: "Presentación del mundo y el secreto inicial"
+      - inciting_incident: "El descubrimiento de una amenaza al secreto"
+      - first_reveal: "Primer descubrimiento parcial del secreto"
+      - midpoint: "Revelación significativa que cambia todo"
+      - second_reveal: "La traición de alguien cercano"
+      - climax: "Confrontación final y decisión sobre el secreto"
+      - resolution: "Consecuencias y nuevo orden establecido"
+    beat_preferences:
+      hook_preference: ["identity_flip", "forbidden_meeting", "secret_revealed"]
+      cliffhanger_preference: ["identidad", "traicion", "decision_imposible", "revelacion"]
+      cta_preference: ["identity_tease", "moral_dilemma", "revenge_choice"]
+    visual_themes:
+      - color_palettes: ["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFBE0B"]  # coral, teal, blue, gold
+      - lighting_style: "suave_y_difuso_con_toques_de_drama"
+      - camera_movement: "lento_y_deliberado_con_enfoques_en_rostros"
+    audio_themes:
+      - music_style: "piano_y_cuerdas_suaves_con_toques_de_tensión"
+      - signature_sounds: ["susurro", "latido_suave", "piano_delicado"]
+
+  venganza_sofisticada:
+    name: Venganza Sofisticada
+    description: "Historias de venganza elaborada, juego psicológico y consecuencias inesperadas"
+    core_tropes:
+      - poder_reversal
+      - humiliation_publica
+      - evidencia_oculta
+      - alianza_inedita
+      - costo_personal_de_la_venganza
+      - linea_moral_difusa
+      - redencion_a_través_del_sacrificio
+    common_settings:
+      - corporativo
+      - político
+      - legal
+      - alta_finanzas
+    typical_characters:
+      - protagonista: "víctima buscando justicia por medio propio"
+      - antagonista: "figura de poder que abusó de su posición"
+      - aliado: "insider que proporciona información clave"
+      - interés_amoroso: "alguien conectado al objetivo de manera inesperada"
+    plot_points:
+      - setup: "Presentación del agravio y decisión de venganza"
+      - planning_fase: "Elaboración del plan de venganza"
+      - first_strike: "Primer golpe que desestabiliza al objetivo"
+      - escalation: "El objetivo responde y aumenta la tensión"
+      - midpoint: "Revelación que cambia la percepción de poder"
+      - segunda_fase: "El plan evoluciona basado en nueva información"
+      - climax: "Confrontación donde se revela el verdadero costo"
+      - resolution: "Después de la venganza, el verdadero estado de las cosas"
+    beat_preferences:
+      hook_preference: ["public_humiliation", "evidence_reveal", "betrayal_exposure"]
+      cliffhanger_preference: ["revelacion", "amenaza", "reversal", "decision"]
+      cta_preference: ["revenge_choice", "moral_dilemma", "team_war"]
+    visual_themes:
+      - color_palettes: ["#2C3E50", "#E74C3C", "#ECF0F1", "#95A5A6"]  # dark blue, red, light gray, gray
+      - lighting_style: "duro_y_contraste_para_enfatizar_tensión"
+      - camera_movement: "dinámico_con_panos_rápidos_y_enfoques_súbitos"
+    audio_themes:
+      - music_style: "electrónica_sutil_con_pulsos_de_tensión"
+      - signature_sounds: ["golpe_sordo", "susurro_amenazante", "pasos_en_silencio"]
+
+  thriller_domestico:
+    name: Thriller Doméstico
+    description: "Historias de amenaza dentro del hogar o círculo cercano"
+    core_tropes:
+      - gaslighting
+      - falsa_acusación
+      - evidencia_plantada
+      - aliado_que_traiciona
+      - amenaza_a_seres_queridos
+      - descubrimiento_progresivo
+      - lucha_por_la_verdad
+    common_settings:
+      - suburbio_residencial
+      - entorno_familiar
+      - comunidad_cerrada
+      - entorno_laboral_cercano
+    typical_characters:
+      - protagonista: "víctima de manipulación psicológica"
+      - antagonista: "figura de confianza que abusa de su posición"
+      - aliado: "profesional o amigo que inicialmente duda"
+      - interés_amoroso: "alguien que ayuda a ver la verdad o complica la situación"
+    plot_points:
+      - setup: "Presentación de la vida aparentemente normal y primeras señales de anomalía"
+      - creciente_sospecha: "El protagonista comienza a notar inconsistencias"
+      - primer_incidente: "Un evento que confirma que algo está muy mal"
+      - aislamiento: "El protagonista empieza a ser aislado de su apoyo"
+      - midpoint: "Revelación significativa sobre la verdadera naturaleza de la amenaza"
+      - contraataque: "El protagonista comienza a reunir evidencia y aliados"
+      - climax: "Confrontación donde se revela el pleno alcance de la manipulación"
+      - resolution: "Después de la confrontación, proceso de reconstrucción y sanación"
+    beat_preferences:
+      hook_preference: ["gaslighting_reveal", "hidden_camera_found", "alias_discovered"]
+      cliffhanger_preference: ["revelacion", "amenaza", "decision", "identidad"]
+      cta_preference: ["moral_dilemma", "identity_tease", "team_war"]
+    visual_themes:
+      - color_palettes: ["#34495E", "#E67E22", "#ECF0F1", "#BDC3C7"]  # dark blue-gray, orange, light gray, gray
+      - lighting_style: "natural_con_sombras_profundas_para_sugerir_ocultamiento"
+      - camera_movement: "estático_con_enfoques_lentos_y_panos_ocupacionales"
+    audio_themes:
+      - music_style: "ambiental_sutil_con_tonos_bajos_y_susurros"
+      - signature_sounds: ["susurro", "pisada_en_la_oscuridad", "puerta_que_chirre", "respiración_entrecortada"]
+
+  accion_urbana:
+    name: Acción Urbana
+    description: "Historias de persecución, crimen organizado y justicia callejera"
+    core_tropes:
+      - persecución_a_pie_y_en_vehículo
+      - intercambio_de_información_en_la_calle
+      - alianza_improbable
+      - código_de_la_calle
+      - redención_a_través_del_acto_heroico
+      - conséquence_inevitable_de_las_acciones
+      - honor_entre_ladrones
+    common_settings:
+      - ciudad_metropolitana
+      - barrios_marginados
+      - zona_industrial
+      - puertos_y_zonas_de_comercio
+    typical_characters:
+      - protagonista: "ex-oficial o artista marcial con habilidades especiales"
+      - antagonista: "líder de organización criminal o corrupto en el poder"
+      - aliado: "informante de la calle o antiguo enemigo convertido en aliado"
+      - interés_amoroso: "alguien conectado al mundo criminal o que representa una salida"
+    plot_points:
+      - setup: "Presentación del mundo criminal y la amenaza inicial"
+      - primer_encuentro: "El protagonista se ve obligado a entrar en acción"
+      - creciente_tensión: "Serie de confrontaciones que escalan el conflicto"
+      - midpoint: "Revelación que cambia la comprensión de quién está realmente detrás"
+      - alianza_improbable: "El protagonista debe trabajar con alguien inesperado"
+      - segundo_acto: "El plan del antagonista se revela en su totalidad"
+      - climax: "Persecución final y confrontación en ubicación simbólica"
+      - resolution: "Después del clímax, establecimiento de un nuevo orden o caos controlado"
+    beat_preferences:
+      hook_preference: ["power_reveal", "threat", "visual_shock"]
+      cliffhanger_preference: ["decision", "amenaza", "accion_interrumpida", "reversal"]
+      cta_preference: ["team_war", "revenge_choice", "identity_tease"]
+    visual_themes:
+      - color_palettes: ["#1A1A1A", "#FF6B35", "#F1C40F", "#ECF0F1"]  # almost black, orange-red, yellow, light gray
+      - lighting_style: "alto_contraste_con_sombras_marcadas_y_luces_de_neón"
+      - camera_movement: "rápido_y_energético_con_panos_y_enfoques_dinámicos"
+    audio_themes:
+      - music_style: "electrónica_rítmica_con_pulsos_fuertes_y_bass_lines"
+      - signature_sounds: ["neumaticos_chirrido", "disparo_amortiguado", "sirena_lejana", "latido_acelerado"]
+
+  horror_psicologico:
+    name: Horror Psicológico
+    description: "Historias de miedo interno, paranoia y realidad cuestionable"
+    core_tropes:
+      - realidad_que_se_desintegra
+      - visions_o_alucinaciones
+      - aislación_progresiva
+      - pasado_que_no_deja_ir
+      - presencia_inaudible
+      - duda_sobre_la_cordura
+      - revelación_que_explica_todo
+    common_settings:
+      - casa_antigua_o_isolada
+      - institución_abandonada
+      - entorno_natural_ominoso
+      - entorno_urbano_decadente
+    typical_characters:
+      - protagonista: "persona con historia de trauma o sensibilidad especial"
+      - antagonista: "fuerza o presencia que puede ser real o imaginaria"
+      - aliado: "persona que inicialmente apoya pero eventualmente duda"
+      - interés_amoroso: "alguien que representa conexión con la realidad o complica la percepción"
+    plot_points:
+      - setup: "Presentación del entorno y el estado inicial del protagonista"
+      - primeros_síntomas: "Experiencias extrañas que podrían ser imaginación"
+      - creciente_inquietud: "Los eventos extraños se vuelven más frecuentes e intensos"
+      - punto_de_no_retorno: "Experiencia que confirma que algo realmente anormal está ocurriendo"
+      - midpoint: "Revelación parcial que explica algunos pero no todos los fenómenos"
+      - descenso_a_la_locura: "El protagonista comienza a perder el contacto con la realidad"
+      - climax: "Confrontación con la fuente del horror, real o imaginaria"
+      - resolution: "Después del clímax, aceptación de lo que sea que haya ocurrido"
+    beat_preferences:
+      hook_preference: ["visual_shock", "sudden_silence", "unexpected_sound"]
+      cliffhanger_preference: ["revelacion", "amenaza", "decision", "identity"]
+      cta_preference: ["identity_tease", "moral_dilemma", "revenge_choice"]
+    visual_themes:
+      - color_palettes: ["#000000", "#2F2F2F", "#8B0000", "#FFFFFF"]  # black, dark gray, dark red, white
+      - lighting_style: "bajo_y_direccional_para_crear_sombras_largas_y_miedo"
+      - camera_movement: "lento_y LGBTQ+ CON ENFOQUES QUE SIGUEN LA PERSPECTIVA DEL PROTAGONISTA"
+    audio_themes:
+      - music_style: "ambiental_mínimo_con_tonos_bajos_y_silencios_estratégicos"
+      - signature_sounds: ["susurro_lejano", "golpe_sordo_en_puerta", "respiración_entrecortada", "latido_amplificado"]
+
+# Genre selection rules
+genre_selection_rules:
+  default_genre: romance_traicion
+  genre_distribution:
+    romance_traicion: 0.4
+    venganza_sofisticada: 0.25
+    thriller_domestico: 0.15
+    accion_urbana: 0.12
+    horror_psicologico: 0.08
+
+# Cross-genre tropes (appear in multiple genres with different flavors)
+cross_genre_tropes:
+  secret_revelation:
+    description: "Revelación de información oculta que cambia la comprensión de eventos"
+    genres: ["romance_traicion", "venganza_sofisticada", "thriller_domestico", "accion_urbana", "horror_psicologico"]
+  betrayal_exposure:
+    description: "Exposición de una traición que cambia las dinámicas de poder"
+    genres: ["romance_traicion", "venganza_sofisticada", "thriller_domestico", "accion_urbana", "horror_psicologico"]
+  identity_discovery:
+    description: "Descubrimiento de información sobre la verdadera identidad de un personaje"
+    genres: ["romance_traicion", "venganza_sofisticada", "thriller_domestico", "accion_urbana", "horror_psicologico"]
+  power_shift:
+    description: "Cambio en el equilibrio de poder entre facciones o individuos"
+    genres: ["venganza_sofisticada", "thriller_domestico", "accion_urbana", "horror_psicologico"]
+  moral_dilemma:
+    description: "Situación donde el protagonista debe elegir entre dos opciones igualmente difíciles"
+    genres: ["romance_traicion", "venganza_sofisticada", "thriller_domestico", "accion_urbana", "horror_psicologico"]

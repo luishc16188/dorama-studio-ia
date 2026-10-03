@@ -1,0 +1,248 @@
+# DORAMA STUDIO AI - Quality Gates Configuration
+# Configuration for the 17 quality gates defined in the blueprint
+
+quality_gates:
+  # Story Gates
+  STORY:
+    id: GATE.STORY.001
+    domain: STORY
+    priority: P0
+    criterion: "Todo payoff obligatorio apunta a un setup y a una decisión; cero usos de conocimiento sin evento de adquisición."
+    method: "Grafo de beats + revisión de causalidad."
+    owner: StoryArchitect
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0  # All story gates must pass
+      fail_on_unknown: true  # Unknown critical blocks release
+
+  # Hook Gates
+  HOOK:
+    id: GATE.HOOK.001
+    domain: HOOK
+    priority: P1
+    criterion: "Cada promesa apunta a respuesta, plazo o deuda trasladada; cero promesas engañosas."
+    method: "Inventario hook/payoff y prueba de comprensión."
+    owner: HookEngine
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Retention Gates
+  RETENTION:
+    id: GATE.RETENTION.001
+    domain: RETENTION
+    priority: P1
+    criterion: "Todos los beats esenciales explican su cambio de estado; repetición sin delta requiere justificación editorial."
+    method: "Diff de estados, comparación ciega de variantes y analytics futuros."
+    owner: EpisodeScorer
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Character Gates
+  CHARACTER:
+    id: GATE.CHARACTER.001
+    domain: CHARACTER
+    priority: P0
+    criterion: "Cero cambios críticos de identidad sin evento aprobado; vestuario/heridas tienen versión por escena."
+    method: "Anclas y revisión continua de todas las tomas finales."
+    owner: VisualAgent
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Acting Gates
+  ACTING:
+    id: GATE.ACTING.001
+    domain: ACTING
+    priority: P1
+    criterion: "Cada reacción destacada tiene estímulo y objetivo; la transición emocional se revisa en reproducción, no solo en fotograma."
+    method: "Revisión a velocidad normal y ficha de actuación."
+    owner: VideoAgent
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Visual Gates
+  VISUAL:
+    id: GATE.VISUAL.001
+    domain: VISUAL
+    priority: P0
+    criterion: "Cero objetos causales ilegibles o fondos que contradigan la acción esencial."
+    method: "Revisión visual de render final al tamaño previsto."
+    owner: VisualAgent
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Cinematography Gates
+  CINEMATOGRAPHY:
+    id: GATE.CINEMATOGRAPHY.001
+    domain: CINEMATOGRAPHY
+    priority: P1
+    criterion: "Toda toma declara foco narrativo, eje y dirección; toda inversión espacial es intencional y marcada."
+    method: "Storyboard contra render y mapa espacial."
+    owner: StoryboardAgent
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Animation Gates
+  ANIMATION:
+    id: GATE.ANIMATION.001
+    domain: ANIMATION
+    priority: P0
+    criterion: "Cero saltos no intencionales de identidad, posesión, contacto o trayectoria en eventos esenciales."
+    method: "Reproducción completa y revisión por fotograma de contactos sospechosos."
+    owner: VideoAgent
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Audio Gates
+  AUDIO:
+    id: GATE.AUDIO.001
+    domain: AUDIO
+    priority: P0
+    criterion: "Archivo decodifica; cero saturación digital detectada; texto/voz/personaje y sincronía verificados por escucha."
+    method: "Medición + escucha completa; tolerancia de sync declarada para el destino."
+    owner: VoiceDirector
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Music Gates
+  MUSIC:
+    id: GATE.MUSIC.001
+    domain: MUSIC
+    priority: P1
+    criterion: "Cada cue tiene intención y procedencia; ninguna palabra esencial queda enmascarada al nivel de escucha de prueba."
+    method: "Escucha de mezcla y comparación con stem de voz."
+    owner: MusicSupervisor
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # SFX Gates
+  SFX:
+    id: GATE.SFX.001
+    domain: SFX
+    priority: P1
+    criterion: "Cada sonido causal tiene ancla y perspectiva; cero impactos esenciales manifiestamente desalineados."
+    method: "Escucha y revisión audiovisual de eventos."
+    owner: SoundDesigner
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Editing Gates
+  EDITING:
+    id: GATE.EDITING.001
+    domain: EDITING
+    priority: P0
+    criterion: "EDL cubre la duración aprobada sin huecos accidentales; todas las elipsis y repeticiones tienen función."
+    method: "Validación temporal + reproducción completa."
+    owner: EditorAgent
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Subtitle Gates
+  SUBTITLE:
+    id: GATE.SUBTITLE.001
+    domain: SUBTITLE
+    priority: P0
+    criterion: "Cero líneas verificadas con hablante o texto incorrectos; cero solapes con área excluida del destino."
+    method: "Comparación con transcripción y prueba móvil."
+    owner: SubtitleAgent
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Continuity Gates
+  CONTINUITY:
+    id: GATE.CONTINUITY.001
+    domain: CONTINUITY
+    priority: P0
+    criterion: "Cada transición de heridas, props, lugar o tiempo está motivada; cero contradicciones críticas abiertas."
+    method: "State ledger y revisión visual temporal."
+    owner: EditorAgent
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # AI Artifacts Gates
+  AI_ARTIFACTS:
+    id: GATE.AI_ARTIFACTS.001
+    domain: AI_ARTIFACTS
+    priority: P0
+    criterion: "Cero defectos críticos confirmados de anatomía, identidad o física; candidatos pendientes mantienen unknown."
+    method: "Registro detect/classify/severity y revisión del original."
+    owner: VideoAgent
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Mobile Gates
+  MOBILE:
+    id: GATE.MOBILE.001
+    domain: MOBILE
+    priority: P0
+    criterion: "Acción, rostro y texto causal se comprenden en el dispositivo/tamaño de entrega sin ampliar."
+    method: "Revisión en perfil de pantalla y máscara de interfaz acordados."
+    owner: Publisher
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+  # Final Episode Gates
+  FINAL_EPISODE:
+    id: GATE.FINAL_EPISODE.001
+    domain: FINAL_EPISODE
+    priority: P0
+    criterion: "Todos los gates P0 pass; cero unknown crítico; checksum final coincide y derechos/procedencia registrados."
+    method: "Manifiesto firmado de revisión; no promedio de puntuaciones."
+    owner: EpisodeScorer
+    status: PROPOSED
+    thresholds:
+      pass_threshold: 1.0
+      fail_on_unknown: true
+
+# Global Quality Gate Settings
+global_settings:
+  # Whether to execute gates in parallel or sequentially
+  parallel_execution: true
+  # Timeout for each gate execution (seconds)
+  gate_timeout_sec: 30
+  # Whether to continue execution after a gate fails (for non-critical gates)
+  continue_on_non_critical_failure: true
+  # Whether to generate detailed defect reports
+  generate_defect_reports: true
+  # Whether to auto-attempt regeneration for fixable defects
+  auto_attempt_regeneration: true
+  # Maximum regeneration attempts per defect
+  max_regeneration_attempts: 2
+  # Whether to require human approval for certain gate failures
+  require_human_approval_for: []
+  # Default severity levels for different types of defects
+  severity_levels:
+    CRITICAL: "CRITICAL"
+    HIGH: "HIGH"
+    MEDIUM: "MEDIUM"
+    LOW: "LOW"
+    INFO: "INFO"

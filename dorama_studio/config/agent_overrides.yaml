@@ -1,0 +1,9 @@
+# Agent Override Configuration
+# Each agent can override its defaults via this file.
+
+master_writer:
+  retries: 3
+  timeout: 30  # seconds
+
+storyboard_agent:
+  max_shots_per_episode: 10

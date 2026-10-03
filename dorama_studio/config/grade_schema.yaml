@@ -1,0 +1,13 @@
+grade_schema:
+  total_points: 100
+  sections:
+    - name: plot
+      weight: 0.3
+    - name: character_development
+      weight: 0.2
+    - name: visual_style
+      weight: 0.2
+    - name: originality
+      weight: 0.15
+    - name: pacing
+      weight: 0.15

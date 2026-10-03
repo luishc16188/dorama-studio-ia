@@ -4,10 +4,9 @@ Script de comparación para el workflow de fusión.
 Genera un mapa comparativo entre TARGET y SOURCE.
 """
 
-import os
-import filecmp
 import hashlib
 from pathlib import Path
+
 
 def get_file_hash(filepath):
     """Calcula el hash MD5 de un archivo."""

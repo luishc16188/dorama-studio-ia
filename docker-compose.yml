@@ -1,0 +1,10 @@
+﻿version:  3.9
+services:
+  dorama:
+    build: .
+    image: dorama_studio:latest
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - .:/app
+    command: python -m dorama_studio.scripts.run_pipeline
